@@ -2,6 +2,7 @@
     <li *ngFor="let preset of presets">
       <input [(ngModel)]="preset.name" />
       <button (click)="renamePreset(preset)">Renommer</button>
+      <button (click)="deletePreset(preset)">Supprimer</button>
     </li>
   </ul>
   

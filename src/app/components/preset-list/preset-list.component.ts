@@ -14,6 +14,7 @@ import { Preset } from '../../models/preset.model';
       <li *ngFor="let preset of presets">
         <input [(ngModel)]="preset.name" />
         <button (click)="renamePreset(preset)">Renommer</button>
+        <button (click)="deletePreset(preset)">Supprimer</button>
       </li>
     </ul>
     <p *ngIf="presets.length === 0">Aucun preset disponible...</p>
@@ -25,10 +26,10 @@ export class PresetListComponent implements OnInit {
   constructor(private presetService: PresetService) {}
 
   ngOnInit() {
-    console.log('ngOnInit appelé');   // <--- vérifie que le composant se charge
+    console.log('ngOnInit appelé');   
     this.presetService.getPresets().subscribe({
       next: (data: Preset[]) => {
-        console.log('Presets récupérés :', data);  // <--- vérifie que les données arrivent
+        console.log('Presets récupérés :', data);  
         this.presets = data;
       },
       error: (err) => console.error('Erreur API', err)
@@ -38,5 +39,18 @@ export class PresetListComponent implements OnInit {
 
   renamePreset(preset: Preset) {
     alert(`Renommer preset ${preset.name}`);
+  }
+
+  deletePreset(preset: Preset) {
+    if (!confirm(`Voulez-vous vraiment supprimer le preset "${preset.name}" ?`)) return;
+
+    this.presetService.deletePreset(preset.name).subscribe({
+      next: () => {
+        console.log(`Preset ${preset.name} supprimé`);
+        // On retire le preset de la liste locale pour mettre à jour l'affichage
+        this.presets = this.presets.filter(p => p !== preset);
+      },
+      error: (err) => console.error('Erreur suppression', err)
+    });
   }
 }
