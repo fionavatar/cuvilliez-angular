@@ -20,7 +20,7 @@ import { Preset } from '../models/preset.model';
       }
       
     createPreset(preset: Preset): Observable<Preset> {
-        return this.http.post<Preset>(('http://localhost:3000/api/presets/'), preset);
+        return this.http.post<Preset>(('http://localhost:3000/api/presets'), preset);
       }
     
     deletePreset(presetName: string): Observable<any> {

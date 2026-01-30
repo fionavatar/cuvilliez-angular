@@ -11,7 +11,7 @@ import { Preset } from '../../models/preset.model';
 @Component({
   selector: 'app-add-preset',
   standalone: true,
-  imports: [ CommonModule,MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
   templateUrl: './add-preset.component.html',
   styleUrls: ['./add-preset.component.css']
 })
@@ -40,16 +40,18 @@ export class AddPresetComponent {
 
     const newPreset: Preset = {
       name: this.presetName,
-      type: this.presetType,
+      type: this.presetType || 'Drumkit',
+      isFactoryPresets: false,
       samples
     };
 
-    // Appel au service pour créer le preset
+    console.log('Payload envoyé au backend :', newPreset);
+
     this.presetService.createPreset(newPreset)
       .subscribe({
         next: (preset) => {
           console.log('Preset créé :', preset);
-          this.newPreset.emit(preset); // optionnel, si parent veut réagir
+          this.newPreset.emit(preset); // notifier le parent si besoin
           this.router.navigate(['/presets']); // revenir à la liste
         },
         error: (err) => console.error('Erreur création preset', err)
