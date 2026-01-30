@@ -38,8 +38,16 @@ export class PresetListComponent implements OnInit {
   
 
   renamePreset(preset: Preset) {
-    alert(`Renommer preset ${preset.name}`);
+    const newName = prompt('Nouveau nom du preset', preset.name); //on récup le nouveau nom
+    if (!newName) return;
+  
+    this.presetService.updatePreset(preset.name, { ...preset, name: newName })
+      .subscribe(() => {
+        preset.name = newName; 
+        console.log(`Preset renommé en ${newName}`);
+      });
   }
+  
 
   deletePreset(preset: Preset) {
     if (!confirm(`Voulez-vous vraiment supprimer le preset "${preset.name}" ?`)) return;
