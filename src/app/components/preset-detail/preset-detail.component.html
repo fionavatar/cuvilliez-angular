@@ -1,11 +1,25 @@
-<h2 *ngIf="preset">{{ preset.name }}</h2>
-
-<ul>
-  <li *ngFor="let sample of preset?.samples">
-    {{ sample.name }}
-  </li>
-</ul>
-
-<button mat-raised-button color="warn" (click)="onDeletePreset()">
-  Supprimer le preset
-</button>
+<div *ngIf="preset">
+    <h2>{{ preset.name }}</h2>
+  
+    <ul>
+      <li *ngFor="let sample of preset.samples">
+        {{ sample.name }}
+      </li>
+    </ul>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Nouveau nom</mat-label>
+      <input matInput [(ngModel)]="newName">
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" (click)="onRenamePreset()">
+      Renommer
+    </button>
+  
+    <button mat-raised-button color="warn" (click)="onDeletePreset()">
+      Supprimer le preset
+    </button>
+  </div>
+  
+  <p *ngIf="!preset">Chargement du preset...</p>
+  

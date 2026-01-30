@@ -23,10 +23,19 @@ import { Preset } from '../models/preset.model';
         return this.http.post<Preset>(('http://localhost:3000/api/presets/'), preset);
       }
     
-      deletePreset(presetName: string): Observable<any> {
+    deletePreset(presetName: string): Observable<any> {
        
         return this.http.delete(`${('http://localhost:3000/api/presets')}/${presetName}`);
       }
+    
+    updatePreset(oldName: string, updatedPreset: Preset) {
+        const encodedName = encodeURIComponent(oldName);
+        return this.http.put<Preset>(
+          `http://localhost:3000/api/presets/${encodedName}`,
+          updatedPreset
+        );
+      }
+      
       
   }
   
