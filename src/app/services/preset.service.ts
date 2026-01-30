@@ -12,5 +12,9 @@ import { Preset } from '../models/preset.model';
     getPresets() {
       return this.http.get<Preset[]>('http://localhost:3000/api/presets/');
     }
+    createPreset(preset: Preset): Observable<Preset> {
+        return this.http.post<Preset>(('http://localhost:3000/api/presets/'), preset);
+      }
+      
   }
   

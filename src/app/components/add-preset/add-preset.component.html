@@ -1,0 +1,22 @@
+<h2>Ajouter un preset</h2>
+
+<form (submit)="onSubmit($event)">
+  <mat-form-field appearance="fill">
+    <mat-label>Nom du preset</mat-label>
+    <input matInput [(ngModel)]="presetName" name="presetName" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Type du preset</mat-label>
+    <input matInput [(ngModel)]="presetType" name="presetType">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>URLs des samples (une par ligne)</mat-label>
+    <textarea matInput [(ngModel)]="sampleUrls" name="sampleUrls"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    Ajouter
+  </button>
+</form>
